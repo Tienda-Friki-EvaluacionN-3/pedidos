@@ -33,12 +33,12 @@ public class PedidoService {
     }
 
     public String guardar(Pedido pedido) {
-        List<Pedido> lista = repository.findAll();
-        for (Pedido p : lista) {
-            if (p.getEmail().equalsIgnoreCase(pedido.getEmail())) {
-                return "[+] El pedido ya existe!";
-            }
-        }
+        //List<Pedido> lista = repository.findAll();
+        //for (Pedido p : lista) {
+        //    if (p.getEmail().equalsIgnoreCase(pedido.getEmail())) {
+        //        return "[+] El pedido ya existe!";
+        //    }
+        //}
         if (pedido.getDetalles() != null) {
             for (DetallePedido detalle : pedido.getDetalles()) {
                 detalle.setPedido(pedido);
