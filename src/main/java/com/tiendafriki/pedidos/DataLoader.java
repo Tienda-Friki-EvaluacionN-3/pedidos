@@ -7,6 +7,7 @@ import com.tiendafriki.pedidos.repository.PedidoRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import java.time.LocalDate;
 
 @Configuration
 public class DataLoader {
@@ -21,8 +22,8 @@ public class DataLoader {
                                                 "62342506",
                                                 "Av. santa marta 123",
                                                 40980,
-                                                "23/04/2026",
-                                                "Enviado",
+                                                LocalDate.of(2026, 4, 23),
+                                                "Creado",
                                                 null));
 
                                 repositoryDetalle.save(new DetallePedido(null, 2, 7990, p1));
@@ -33,8 +34,8 @@ public class DataLoader {
                                                 "12345678",
                                                 "Av. Santalima Pe 2",
                                                 17970,
-                                                "07/05/2026",
-                                                "Cancelado",
+                                                LocalDate.of(2026, 5, 7),
+                                                "Pagado",
                                                 null));
 
                                 repositoryDetalle.save(new DetallePedido(null, 3, 5990, p2));
@@ -44,8 +45,8 @@ public class DataLoader {
                                                 "87654321",
                                                 "Av. Panconcarne 777",
                                                 37970,
-                                                "23/04/2026",
-                                                "Reservado",
+                                                LocalDate.of(2026, 4, 23),
+                                                "Pagado",
                                                 null));
 
                                 repositoryDetalle.save(new DetallePedido(null, 1, 19990, p3));
@@ -56,8 +57,8 @@ public class DataLoader {
                                                 "62342506",
                                                 "Av. Santa Marta 123",
                                                 23960,
-                                                "23/04/2026",
-                                                "Enviado",
+                                                LocalDate.of(2026, 4, 23),
+                                                "Cancelado",
                                                 null));
 
                                 repositoryDetalle.save(new DetallePedido(null, 4, 5990, p4));
@@ -67,8 +68,8 @@ public class DataLoader {
                                                 "90817263",
                                                 "Av. Los Pinos 45",
                                                 34990,
-                                                "15/03/2026",
-                                                "Pendiente",
+                                                LocalDate.of(2026, 3, 15),
+                                                "Cancelado",
                                                 null));
 
                                 repositoryDetalle.save(new DetallePedido(null, 1, 34990, p5));
@@ -78,7 +79,7 @@ public class DataLoader {
                                                 "11223344",
                                                 "Av. Central 890",
                                                 25980,
-                                                "10/02/2026",
+                                                LocalDate.of(2026, 2, 10),
                                                 "Cancelado",
                                                 null));
 
@@ -89,8 +90,8 @@ public class DataLoader {
                                                 "55667788",
                                                 "Av. Libertad 321",
                                                 9990,
-                                                "01/01/2026",
-                                                "Enviado",
+                                                LocalDate.of(2026, 1, 1),
+                                                "Pagado",
                                                 null));
 
                                 repositoryDetalle.save(new DetallePedido(null, 1, 9990, p7));
@@ -100,8 +101,8 @@ public class DataLoader {
                                                 "99887766",
                                                 "Av. Siempre Viva 742",
                                                 14970,
-                                                "28/12/2025",
-                                                "Reservado",
+                                                LocalDate.of(2025, 12, 28),
+                                                "Pagado",
                                                 null));
 
                                 repositoryDetalle.save(new DetallePedido(null, 3, 4990, p8));
@@ -111,7 +112,7 @@ public class DataLoader {
                                                 "44556677",
                                                 "Av. Norte 555",
                                                 29980,
-                                                "19/11/2025",
+                                                LocalDate.of(2025, 11, 19),
                                                 "Cancelado",
                                                 null));
 
@@ -122,8 +123,8 @@ public class DataLoader {
                                                 "77889900",
                                                 "Av. Sur 111",
                                                 29990,
-                                                "05/10/2025",
-                                                "Enviado",
+                                                LocalDate.of(2025, 10, 5),
+                                                "Creado",
                                                 null));
 
                                 repositoryDetalle.save(new DetallePedido(null, 1, 29990, p10));
@@ -133,8 +134,8 @@ public class DataLoader {
                                                 "33445566",
                                                 "Av. Oeste 222",
                                                 21980,
-                                                "30/09/2025",
-                                                "Pendiente",
+                                                LocalDate.of(2025, 9, 30),
+                                                "Creado",
                                                 null));
 
                                 repositoryDetalle.save(new DetallePedido(null, 2, 10990, p11));

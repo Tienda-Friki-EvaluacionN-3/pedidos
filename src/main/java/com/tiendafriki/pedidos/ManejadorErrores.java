@@ -74,18 +74,4 @@ public class ManejadorErrores {
         return ResponseEntity.status(500).body(errorDTO);
     }
 
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ErrorDTO> manejarErroresBaseDatos(
-            DataIntegrityViolationException ex,
-            HttpServletRequest request) {
-
-        ErrorDTO errorDTO = new ErrorDTO(
-                LocalDateTime.now(),
-                400,
-                "El email ya esta registrado",
-                null,
-                request.getRequestURI());
-        return ResponseEntity.badRequest().body(errorDTO);
-    }
-
 }
