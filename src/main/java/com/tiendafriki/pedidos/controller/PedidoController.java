@@ -71,4 +71,21 @@ public class PedidoController {
 
     }
 
+    // NUEVO (CONY):
+
+    // PUT: Marcar pedido como pagado:
+
+    // Este endpoint se agregó para permitir que el pedido se marque automaticamnete como pagado
+    // cuando el el microservicio pago se efetua correctamente
+
+    // Pago mandará una petición HTTP a pedido para que actualice el estado a pagado
+
+    @PutMapping("/{id}/pagado")
+    public ResponseEntity<String> marcarComoPagado(@PathVariable Integer id){
+
+        String mensaje = service.marcarComoPagado(id);
+
+        return ResponseEntity.ok(mensaje);
+    }
+
 }

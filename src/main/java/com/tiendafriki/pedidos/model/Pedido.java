@@ -41,7 +41,7 @@ public class Pedido {
 
        @NotNull(message = "[+] La fecha no puede estar vacia...")
        private LocalDate fechaRegistro;
-       //cambiar 
+       //cambiar
 
        @Pattern(regexp = "(?i)Creado|Pagado|Cancelado", message = "[+] El estado debe ser Pendiente, Enviado o Cancelado...")
        @NotBlank(message = "[+] El estado no puede estar vacio...")

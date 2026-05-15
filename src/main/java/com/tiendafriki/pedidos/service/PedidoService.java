@@ -66,4 +66,42 @@ public class PedidoService {
         return "[+] El pedido no fue encontrado";
     }
 
+
+
+    // NUEVO (CONY):
+
+    // PUT: Marcar pedido como pagado:
+
+    // Esta función se agregó para permitir que el pedido se marque automaticamnete como pagado
+    // cuando el el microservicio pago se efetua correctamente
+
+    public String marcarComoPagado(Integer id){
+
+        // Se buscar el pedido por id (segun el id indicado por pago) y se guarda en una variable:
+
+        Optional<Pedido> pedidoOpt = repository.findById(id);
+
+        // Se comprueba que el pedido exista:
+
+        if(pedidoOpt.isEmpty()){
+
+            return "[+] Pedido no encontrado";
+        }
+
+        //  Se crear un objeto pedido nuevo a partir de los datos del pedido que se desea actuaizar
+
+        Pedido pedido = pedidoOpt.get();
+
+        // Se actualiza el estado del pedido a pagado
+
+        pedido.setEstado("PAGADO");
+
+        // Se guarda el pedido actualizado
+
+        repository.save(pedido);
+
+        return "[+] Pedido actualizado a PAGADO";
+    }
+
+
 }
