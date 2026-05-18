@@ -15,7 +15,7 @@ public class DataLoader {
         @Bean
         CommandLineRunner init(PedidoRepository repositoryPedido, DetallePedidoRepository repositoryDetalle) {
                 return args -> {
-                        if (repositoryPedido.count() == 0) {
+                        if (repositoryPedido.count() == 0) {    
 
                                 Pedido p1 = repositoryPedido.save(new Pedido(null,
                                                 1,

@@ -12,7 +12,6 @@ import com.tiendafriki.pedidos.dto.PedidoRequestDTO;
 import com.tiendafriki.pedidos.model.DetallePedido;
 import com.tiendafriki.pedidos.model.Pedido;
 import com.tiendafriki.pedidos.repository.PedidoRepository;
-import com.tiendafriki.pedidos.dto.PedidoRequestDTO;
 import com.tiendafriki.pedidos.dto.DetallePedidoRequestDTO;
 
 @Service
