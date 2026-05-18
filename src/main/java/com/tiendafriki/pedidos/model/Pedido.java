@@ -21,6 +21,9 @@ public class Pedido {
        @GeneratedValue(strategy = GenerationType.IDENTITY)
        private Integer id;
 
+       @NotNull(message = "[+] El id del carrito no puede estar vacio...")
+       private Integer carritoId;
+
        @Size(max = 100, message = "[+] El correo no puede tener más de 100 caracteres...")
        @Email(message = "[+] El correo debe ser valido...")
        @NotBlank(message = "[+] El correo no puede estar vacio...")
@@ -41,9 +44,8 @@ public class Pedido {
 
        @NotNull(message = "[+] La fecha no puede estar vacia...")
        private LocalDate fechaRegistro;
-       //cambiar
 
-       @Pattern(regexp = "(?i)Creado|Pagado|Cancelado", message = "[+] El estado debe ser Pendiente, Enviado o Cancelado...")
+       @Pattern(regexp = "(?i)Creado|Pagado|Cancelado", message = "[+] El estado debe ser Creado, Pagado o Cancelado...")
        @NotBlank(message = "[+] El estado no puede estar vacio...")
        private String estado;
 

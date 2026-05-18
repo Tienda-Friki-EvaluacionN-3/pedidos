@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.tiendafriki.pedidos.dto.PedidoRequestDTO;
 
 import com.tiendafriki.pedidos.model.Pedido;
 import com.tiendafriki.pedidos.service.PedidoService;
@@ -53,8 +54,8 @@ public class PedidoController {
     }
 
     @PostMapping("/agregar")
-    public ResponseEntity<String> crearPedido(@Valid @RequestBody Pedido pedido) {
-        String mensaje = service.guardar(pedido);
+    public ResponseEntity<String> crearPedido(@Valid @RequestBody PedidoRequestDTO pedidoDTO) {
+        String mensaje = service.guardar(pedidoDTO);
         return ResponseEntity.status(201).body(mensaje);
     }
 
@@ -75,13 +76,14 @@ public class PedidoController {
 
     // PUT: Marcar pedido como pagado:
 
-    // Este endpoint se agregó para permitir que el pedido se marque automaticamnete como pagado
+    // Este endpoint se agregó para permitir que el pedido se marque automaticamnete
+    // como pagado
     // cuando el el microservicio pago se efetua correctamente
 
     // Pago mandará una petición HTTP a pedido para que actualice el estado a pagado
 
     @PutMapping("/{id}/pagado")
-    public ResponseEntity<String> marcarComoPagado(@PathVariable Integer id){
+    public ResponseEntity<String> marcarComoPagado(@PathVariable Integer id) {
 
         String mensaje = service.marcarComoPagado(id);
 

@@ -1,14 +1,19 @@
 package com.tiendafriki.pedidos.service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tiendafriki.pedidos.dto.PedidoRequestDTO;
 import com.tiendafriki.pedidos.model.DetallePedido;
 import com.tiendafriki.pedidos.model.Pedido;
 import com.tiendafriki.pedidos.repository.PedidoRepository;
+import com.tiendafriki.pedidos.dto.PedidoRequestDTO;
+import com.tiendafriki.pedidos.dto.DetallePedidoRequestDTO;
 
 @Service
 public class PedidoService {
@@ -32,13 +37,39 @@ public class PedidoService {
         return repository.findByDireccion(direccion);
     }
 
-    public String guardar(Pedido pedido) {
-        if (pedido.getDetalles() != null) {
-            for (DetallePedido detalle : pedido.getDetalles()) {
-                detalle.setPedido(pedido);
-            }
+    public String guardar(PedidoRequestDTO pedidoDTO) {
+
+        Pedido pedido = new Pedido();
+
+        pedido.setCarritoId(pedidoDTO.getCarritoId());
+        pedido.setEmail(pedidoDTO.getEmail());
+        pedido.setTelefono(pedidoDTO.getTelefono());
+        pedido.setDireccion(pedidoDTO.getDireccion());
+        pedido.setFechaRegistro(LocalDate.now());
+        pedido.setEstado("Creado");
+
+        int total = 0;
+        List<DetallePedido> detalles = new ArrayList<>();
+
+        for (DetallePedidoRequestDTO detalleDTO : pedidoDTO.getDetalles()) {
+
+            DetallePedido detalle = new DetallePedido();
+
+            detalle.setProductoId(detalleDTO.getProductoId());
+            detalle.setCantidad(detalleDTO.getCantidad());
+            detalle.setPrecio(detalleDTO.getPrecio());
+            detalle.setPedido(pedido);
+
+            total += detalleDTO.getCantidad() * detalleDTO.getPrecio();
+
+            detalles.add(detalle);
         }
+
+        pedido.setTotal(total);
+        pedido.setDetalles(detalles);
+
         repository.save(pedido);
+
         return "[+] El pedido fue agregado correctamente";
     }
 
@@ -66,29 +97,30 @@ public class PedidoService {
         return "[+] El pedido no fue encontrado";
     }
 
-
-
     // NUEVO (CONY):
 
     // PUT: Marcar pedido como pagado:
 
-    // Esta función se agregó para permitir que el pedido se marque automaticamnete como pagado
+    // Esta función se agregó para permitir que el pedido se marque automaticamnete
+    // como pagado
     // cuando el el microservicio pago se efetua correctamente
 
-    public String marcarComoPagado(Integer id){
+    public String marcarComoPagado(Integer id) {
 
-        // Se buscar el pedido por id (segun el id indicado por pago) y se guarda en una variable:
+        // Se buscar el pedido por id (segun el id indicado por pago) y se guarda en una
+        // variable:
 
         Optional<Pedido> pedidoOpt = repository.findById(id);
 
         // Se comprueba que el pedido exista:
 
-        if(pedidoOpt.isEmpty()){
+        if (pedidoOpt.isEmpty()) {
 
             return "[+] Pedido no encontrado";
         }
 
-        //  Se crear un objeto pedido nuevo a partir de los datos del pedido que se desea actuaizar
+        // Se crear un objeto pedido nuevo a partir de los datos del pedido que se desea
+        // actuaizar
 
         Pedido pedido = pedidoOpt.get();
 
@@ -102,6 +134,5 @@ public class PedidoService {
 
         return "[+] Pedido actualizado a PAGADO";
     }
-
 
 }
