@@ -80,7 +80,7 @@ public class PedidoService {
                 return "[+] El pedido fue actualizado correctamente";
             }
         }
-        return "[+] El pedido no fue encontrado";
+        return "[ERROR] El pedido no fue encontrado [x_x]";
 
     }
 
@@ -93,12 +93,12 @@ public class PedidoService {
             }
 
         }
-        return "[+] El pedido no fue encontrado";
+        return "[ERROR] El pedido no fue encontrado [x_x]";
     }
 
     // NUEVO (CONY):
 
-    // PUT: Marcar pedido como pagado:
+    // === (PUT): Marcar pedido como PAGADO: === //
 
     // Esta función se agregó para permitir que el pedido se marque automaticamnete
     // como pagado
@@ -115,7 +115,7 @@ public class PedidoService {
 
         if (pedidoOpt.isEmpty()) {
 
-            return "[+] Pedido no encontrado";
+            return "[ERROR] Pedido no encontrado [x_x]";
         }
 
         // Se crear un objeto pedido nuevo a partir de los datos del pedido que se desea
@@ -125,13 +125,46 @@ public class PedidoService {
 
         // Se actualiza el estado del pedido a pagado
 
-        pedido.setEstado("PAGADO");
+        pedido.setEstado("Pagado");
 
         // Se guarda el pedido actualizado
 
         repository.save(pedido);
 
         return "[+] Pedido actualizado a PAGADO";
+    }
+
+     // === (PUT): Marcar pedido como REEMBOLSADO: === //
+
+    // Esta función se agregó para permitir que el pedido se marque automaticamnete como REEMBOLSADO
+    // cuando el el microservicio devoluciones se efectue correctamente sobre pedido
+
+    public String marcarComoReembolsado(Integer id){
+
+        // Se busca el pedido por id (segun el id indicado por pago) y se guarda en una variable:
+
+        Optional<Pedido> pedidoOpt = repository.findById(id);
+
+        // Se comprueba que el pedido exista:
+
+        if(pedidoOpt.isEmpty()){
+
+            return "[ERROR] Pedido no encontrado [X_X]";
+        }
+
+        //  Se crear un objeto pedido nuevo a partir de los datos del pedido que se desea actuaizar
+
+        Pedido pedido = pedidoOpt.get();
+
+        // Se actualiza el estado del pedido a reembolsado
+
+        pedido.setEstado("Reembolsado");
+
+        // Se guarda el pedido actualizado
+
+        repository.save(pedido);
+
+        return "[+] Pedido actualizado a REEMBOLSADO";
     }
 
 }

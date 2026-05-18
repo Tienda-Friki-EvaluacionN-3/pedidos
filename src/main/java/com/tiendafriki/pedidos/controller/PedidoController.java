@@ -59,6 +59,19 @@ public class PedidoController {
         return ResponseEntity.status(201).body(mensaje);
     }
 
+    // ======== NOTA CONY: PERCANSE CON ACTUALIZACIÓN ========= //
+
+    // OJO, no debería poderse actualizar TODOS los datos de un pedido completo
+    // ya que cosas como la fecha y estados automaticos NO deberían poder actualizarse
+    // lo que se ingresa debería ser controlado por un DTO
+    
+    // Sugiero implementar 2 Endpoints actualizar con sus respectivos DTO
+    
+    // 1 - Uno para el cliente controlado por el dto PedidoRequestDTO
+    // donde solo pueda ingresar datos como el carrito, el correo, el telefono, el detalle, etc
+    
+    // 2 - Uno para
+
     @PutMapping("/actualizar")
     public ResponseEntity<String> actualizar(@Valid @RequestBody Pedido pedido) {
         String mensaje = service.actualizar(pedido);
@@ -86,6 +99,21 @@ public class PedidoController {
     public ResponseEntity<String> marcarComoPagado(@PathVariable Integer id) {
 
         String mensaje = service.marcarComoPagado(id);
+
+        return ResponseEntity.ok(mensaje);
+    }
+
+    // === PUT: Marcar pedido como rembolsado: === //
+
+    // Este endpoint se agregó para permitir que el pedido se marque automaticamnete como rembolsado
+    // cuando el el microservicio devoluciones se efetua correctamente
+
+    // Pago mandará una petición HTTP a pedido para que actualice el estado a rembolsado
+
+    @PutMapping("/{id}/reembolsado")
+    public ResponseEntity<String> marcarComoReembolsado(@PathVariable Integer id){
+
+        String mensaje = service.marcarComoReembolsado(id);
 
         return ResponseEntity.ok(mensaje);
     }

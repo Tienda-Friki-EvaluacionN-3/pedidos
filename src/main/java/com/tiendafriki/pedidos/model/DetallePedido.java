@@ -19,15 +19,15 @@ public class DetallePedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull(message = "[+] El productoId no puede estar vacio...")
+    @NotNull(message = "[ERROR] El productoId no puede estar vacio [X_X] ...")
     private Integer productoId;
 
-    @Positive(message = "[+] La cantidad del producto debe ser un numero positivo...")
-    @NotNull(message = "[+] La cantidad del prodcto no puede estar vacio...")
+    @Positive(message = "[ERROR] La cantidad del producto debe ser un numero positivo [X_X] ...")
+    @NotNull(message = "[ERROR] La cantidad del producto no puede estar vacio [X_X] ...")
     private Integer cantidad;
 
-    @Positive(message = "[+] El precio debe ser un numero positivo...")
-    @NotNull(message = "[+] El precio no puede estar vacio...")
+    @Positive(message = "[ERROR] El precio debe ser un numero positivo [X_X] ...")
+    @NotNull(message = "[ERROR] El precio no puede estar vacio [X_X] ... ")
     private Integer precio;
 
     @ManyToOne

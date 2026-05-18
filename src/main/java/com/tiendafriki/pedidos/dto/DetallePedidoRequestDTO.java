@@ -7,14 +7,14 @@ import lombok.Data;
 @Data
 public class DetallePedidoRequestDTO {
 
-    @NotNull(message = "[+] El productoId no puede estar vacio...")
+    @NotNull(message = "[ERROR] El productoId no puede estar vacio [X_X] ...")
     private Integer productoId;
 
-    @Positive(message = "[+] La cantidad debe ser un numero positivo...")
-    @NotNull(message = "[+] La cantidad no puede estar vacia...")
+    @Positive(message = "[ERROR] La cantidad debe ser un numero positivo [X_X] ...")
+    @NotNull(message = "[ERROR] La cantidad no puede estar vacia [X_X] ...")
     private Integer cantidad;
 
-    @Positive(message = "[+] El precio debe ser un numero positivo...")
-    @NotNull(message = "[+] El precio no puede estar vacio...")
+    @Positive(message = "[ERROR] El precio debe ser un numero positivo [X_X] ...")
+    @NotNull(message = "[ERROR] El precio no puede estar vacio [X_X] ...")
     private Integer precio;
 }
