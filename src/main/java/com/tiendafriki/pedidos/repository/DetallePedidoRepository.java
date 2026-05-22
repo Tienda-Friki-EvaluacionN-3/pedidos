@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DetallePedidoRepository extends JpaRepository<DetallePedido, Integer> {
 
+    // Este repositorio podría contener funciones propias para consultar detalles de pedidos
     
 }

@@ -5,6 +5,8 @@ import jakarta.validation.constraints.*;
 import lombok.Data;
 import java.util.List;
 
+// Este DTO sirve para controlar los datos que ingresa el usuario para crear un pedido
+
 @Data
 public class PedidoRequestDTO {
 

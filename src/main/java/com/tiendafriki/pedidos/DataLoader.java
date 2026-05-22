@@ -9,13 +9,22 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import java.time.LocalDate;
 
+// TEMPORALMENTE DESHABILITADO
+// El microservicio Pedido ahora depende de validaciones
+// contra el microservicio Carrito.
+// Los pedidos deben crearse usando carritos reales existentes
+
+// En caso de que se quiera rehabilitar este Dataloader, deberá adaptarse a los nuevos datos
+
 @Configuration
 public class DataLoader {
+
+        /* 
 
         @Bean
         CommandLineRunner init(PedidoRepository repositoryPedido, DetallePedidoRepository repositoryDetalle) {
                 return args -> {
-                        if (repositoryPedido.count() == 0) {    
+                        if (repositoryPedido.count() == 0) {
 
                                 Pedido p1 = repositoryPedido.save(new Pedido(null,
                                                 1,
@@ -154,5 +163,7 @@ public class DataLoader {
                 };
 
         }
+
+        */
 
 }

@@ -4,14 +4,14 @@ import com.tiendafriki.pedidos.model.Pedido;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.util.List;
 
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Integer>{
 
 
-    Optional<Pedido> findBytelefono(String telefono);
+    List<Pedido> findBytelefono(String telefono);
 
-    Optional<Pedido> findByDireccion(String direccion);
+    List<Pedido> findByDireccion(String direccion);
 
 }
