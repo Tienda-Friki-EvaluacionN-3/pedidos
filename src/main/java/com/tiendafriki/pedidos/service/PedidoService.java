@@ -445,7 +445,7 @@ public class PedidoService {
         return "[+] El pedido fue actualizado correctamente";
     }
 
-    // === DELETE:  ELIMINAR (Corregido) == //
+    // === DELETE: ELIMINAR (Corregido) == //
 
     public String eliminar(Integer id) {
 
@@ -465,7 +465,7 @@ public class PedidoService {
             );
         }
 
-        // Si existe, eliminamos 
+        // Si existe, eliminamos
 
         repository.deleteById(id);
 
@@ -498,9 +498,52 @@ public class PedidoService {
         }
 
         // Se crear un objeto pedido nuevo a partir de los datos del pedido que se desea
-        // actuaizar
+        // actualizar
 
         Pedido pedido = pedidoOpt.get();
+
+        // === NUEVO: DESCONTAR STOCK EN CATALOGO === //
+
+        // Antes de marcar el pedido como pagado,
+        // recorremos todos los detalles del pedido
+        // para descontar stock de cada producto
+
+        RestTemplate rt = new RestTemplate();
+
+        // Recorremos cada detalle del pedido
+
+        for (DetallePedido detalle : pedido.getDetalles()) {
+
+            // URL del endpoint de catalogo encargado
+            // de descontar stock automaticamente
+
+            String url =
+                    "http://localhost:8081/catalogo/descontarstock/"
+                            + detalle.getProductoId()
+                            + "/"
+                            + detalle.getCantidad();
+
+            try {
+
+                // Ejecutamos PUT hacia catalogo
+                // para descontar stock
+
+                rt.put(url, null);
+
+            } catch (Exception e) {
+
+                // Si falla catalogo o el stock es insuficiente,
+                // NO permitimos marcar el pedido como pagado
+
+                throw new RuntimeException(
+                        "[ERROR] No se pudo descontar stock del producto ID "
+                                + detalle.getProductoId()
+                                + " [X_X] ..."
+                );
+            }
+        }
+
+        // === FIN DESCUENTO DE STOCK === //
 
         // Se actualiza el estado del pedido a pagado
 
