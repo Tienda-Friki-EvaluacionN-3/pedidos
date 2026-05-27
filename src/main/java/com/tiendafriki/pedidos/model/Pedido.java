@@ -48,9 +48,9 @@ public class Pedido {
        private LocalDate fechaRegistro;
 
 
-       // En la base de datos se validan solo estos estados: Creado, Pagado, Cancelado, Reembolsado
+       // En la base de datos se validan solo estos estados: Creado, Pagado, Reembolsado
 
-       @Pattern(regexp = "(?i)Creado|Pagado|Cancelado|Reembolsado", message = "[ERROR] El estado debe ser Creado, Pagado, Reembolsado o Cancelado...")
+       @Pattern(regexp = "(?i)Creado|Pagado|Reembolsado", message = "[ERROR] El estado debe ser Creado, Pagado, Reembolsado o Cancelado...")
        @NotBlank(message = "[ERROR] El estado no puede estar vacio [X_X] ...")
        private String estado;
 

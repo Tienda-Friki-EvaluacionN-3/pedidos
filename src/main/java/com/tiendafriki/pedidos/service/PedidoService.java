@@ -40,7 +40,6 @@ public class PedidoService {
                 // Pero en caso que no encuentre un pedido por esa id
                 // devolvera eta excepcion del Manejadro de Errores:
                 // NoSuchElementException: Error 404 no encontrado
-                
                 .orElseThrow(() ->
                 new NoSuchElementException
                 ( "[ERROR] Pedido no encontrado [X_X] ..."));
