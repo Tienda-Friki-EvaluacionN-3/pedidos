@@ -3,11 +3,6 @@ package com.tiendafriki.pedidos.dto;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
-// NUEVO DTO PARA ACTUALIZAR //
-
-// Este DTO contiene los datos que el usuario tiene permitido ingresar
-// para actualizar un pedido. Solamente el email, telefono y direccion
-
 @Data
 public class PedidoActualizarDTO {
 

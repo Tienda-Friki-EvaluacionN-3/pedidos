@@ -44,11 +44,7 @@ public class Pedido {
 
        @NotNull(message = "[ERROR] La fecha no puede estar vacia [X_X] ...")
        
-       // La fecha se maneja de forma automatica.
        private LocalDate fechaRegistro;
-
-
-       // En la base de datos se validan solo estos estados: Creado, Pagado, Reembolsado
 
        @Pattern(regexp = "(?i)Creado|Pagado|Reembolsado", message = "[ERROR] El estado debe ser Creado, Pagado, Reembolsado o Cancelado...")
        @NotBlank(message = "[ERROR] El estado no puede estar vacio [X_X] ...")

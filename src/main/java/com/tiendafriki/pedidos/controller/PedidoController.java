@@ -1,6 +1,5 @@
 package com.tiendafriki.pedidos.controller;
 
-
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +15,9 @@ import com.tiendafriki.pedidos.dto.PedidoRequestDTO;
 import com.tiendafriki.pedidos.model.Pedido;
 import com.tiendafriki.pedidos.service.PedidoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 
 import com.tiendafriki.pedidos.dto.PedidoActualizarDTO;
@@ -24,22 +26,30 @@ import com.tiendafriki.pedidos.dto.PedidoActualizarDTO;
 @RequestMapping("/pedidos")
 public class PedidoController {
 
-    // CONSTRUCTOR DE CONTROLLER E INYECCION DEL SERVICE
-
     private PedidoService service;
 
     public PedidoController(PedidoService service) {
         this.service = service;
     }
 
-    // === GET: LISTAR === //
-
+    @Operation(summary = "Listar pedidos", description = "Obtiene una lista con todos los pedidos registrados en el sistema")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista obtenida correctamente"),
+            @ApiResponse(responseCode = "400", description = "Datos invalidos"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
+    
     @GetMapping("/listar")
     public List<Pedido> listar() {
         return service.listar();
     }
 
-    // === GET: BUSCAR POR ID === //
+    @Operation(summary = "Buscar pedido por ID", description = "Busca un pedido según su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pedido encontrado correctamente"),
+            @ApiResponse(responseCode = "404", description = "Pedido no encontrado"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
 
     @GetMapping("/buscarId/{id}")
     public Pedido buscarPorId(@PathVariable Integer id) {
@@ -47,21 +57,36 @@ public class PedidoController {
         return service.buscarPorId(id);
     }
 
-    // === GET: BUSCAR POR TELEFONO === //
+    @Operation(summary = "Buscar pedidos por teléfono", description = "Busca pedidos vinculados a un número de teléfono")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pedidos encontrados correctamente"),
+            @ApiResponse(responseCode = "404", description = "No se encontraron pedidos con ese teléfono"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
 
     @GetMapping("/buscarPorTelefono/{telefono}")
     public List<Pedido> buscarPorTelefono(@PathVariable String telefono) {
         return service.buscarPorTelefono(telefono);
     }
-    
-    // === GET: BUSCAR POR DIRECCION === //
+
+    @Operation(summary = "Buscar pedidos por dirección", description = "Busca pedidos vinculados a una dirección")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pedidos encontrados correctamente"),
+            @ApiResponse(responseCode = "404", description = "No se encontraron pedidos con esa dirección"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
 
     @GetMapping("/buscarPorDireccion/{direccion}")
-    public List<Pedido>  buscarPorDireccion(@PathVariable String direccion) {
+    public List<Pedido> buscarPorDireccion(@PathVariable String direccion) {
         return service.buscarPorDireccion(direccion);
     }
 
-    // === POST: AGREGAR  === //
+    @Operation(summary = "agregar pedido", description = "Agrega un nuevo pedido a partir de los datos ingresados")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Pedido agregado correctamente"),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos o error de validación"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
 
     @PostMapping("/agregar")
     public ResponseEntity<String> crearPedido(@Valid @RequestBody PedidoRequestDTO pedidoDTO) {
@@ -69,29 +94,29 @@ public class PedidoController {
         return ResponseEntity.status(201).body(mensaje);
     }
 
-    // NUEVO:
-
-    // === PUT: ACTUALIZAR POR ID === //
-
-    // Ahora se ingresa el id por la url, y se usa un PedidoActualizarDTO
-    // para controlar el ingreso de los datos por el usuario
-    // Solo permitirá cambiar el email, direccion y el telefono.
+    @Operation(summary = "Actualizar pedido", description = "Actualiza email, teléfono y dirección de un pedido existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pedido actualizado correctamente"),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos"),
+            @ApiResponse(responseCode = "404", description = "Pedido no encontrado"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
 
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizar(@PathVariable Integer id,
             @Valid @RequestBody PedidoActualizarDTO dto) {
-        
-        // Ingresamos el id y el DTO al servicio de actualizar
-        // y guardamos el mensaje
 
         String mensaje = service.actualizar(id, dto);
-
-        // Retornamos la respuesta HTTP con el mensaje
 
         return ResponseEntity.ok(mensaje);
     }
 
-    // === DELETE: ELIMINAR POR ID === //
+    @Operation(summary = "Eliminar pedido", description = "Elimina un pedido vinculado a su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pedido eliminado correctamente"),
+            @ApiResponse(responseCode = "404", description = "Pedido no encontrado"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
 
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<String> eliminar(@PathVariable Integer id) {
@@ -100,15 +125,12 @@ public class PedidoController {
 
     }
 
-    // NUEVO:
-
-    // PUT: Marcar pedido como pagado:
-
-    // Este endpoint se agregó para permitir que el pedido se marque automaticamnete
-    // como pagado
-    // cuando el el microservicio pago se efectua correctamente
-
-    // Pago mandará una petición HTTP a pedido para que actualice el estado a pagado automaticamente
+    @Operation(summary = "Marcar pedido como pagado", description = "Actualiza el estado del pedido a Pagado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pedido marcado como pagado correctamente"),
+            @ApiResponse(responseCode = "404", description = "Pedido no encontrado"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
 
     @PutMapping("/{id}/pagado")
     public ResponseEntity<String> marcarComoPagado(@PathVariable Integer id) {
@@ -118,15 +140,15 @@ public class PedidoController {
         return ResponseEntity.ok(mensaje);
     }
 
-    // === PUT: Marcar pedido como rembolsado: === //
-
-    // Este endpoint se agregó para permitir que el pedido se marque automaticamnete como rembolsado
-    // cuando el el microservicio devoluciones se efetua correctamente
-
-    // Pago mandará una petición HTTP a pedido para que actualice el estado a rembolsado automaticamente
+    @Operation(summary = "Marcar pedido como reembolsado", description = "Actualiza el estado del pedido a Reembolsado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pedido marcado como reembolsado correctamente"),
+            @ApiResponse(responseCode = "404", description = "Pedido no encontrado"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
 
     @PutMapping("/{id}/reembolsado")
-    public ResponseEntity<String> marcarComoReembolsado(@PathVariable Integer id){
+    public ResponseEntity<String> marcarComoReembolsado(@PathVariable Integer id) {
 
         String mensaje = service.marcarComoReembolsado(id);
 

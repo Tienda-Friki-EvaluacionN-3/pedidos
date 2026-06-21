@@ -4,8 +4,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
-// Este DTO sirve para controlar los datos que ingresa el usuario para creaer un detalle de pedido
-
 @Data
 public class DetallePedidoRequestDTO {
 
